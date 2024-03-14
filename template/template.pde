@@ -1,13 +1,30 @@
+import java.util.ArrayList;
 
-float x = 0.0;
+float unit = 10;
+
+ArrayList<Particle> particles = new ArrayList(500);
 
 void setup() {
-  size(720,360);
+  noiseSeed(0);
+  colorMode(HSB);
+  size(720, 720);
+  background(0);
   
 }
 
-void draw() {
-  float y = noise(x) * height;
-  line(x, y, x, height);
-  x++;
+void mouseClicked() 
+{
+  particles.add(new Particle(random(width), random(height)));
+}
+
+void draw()
+{
+  for ( Particle p : particles)
+  {
+    p.update();
+  }
+  if (keyPressed)
+  {
+    particles.add(new Particle(random(width), random(height)));
+  }
 }
